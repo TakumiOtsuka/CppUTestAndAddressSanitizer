@@ -1,0 +1,16 @@
+CC := gcc
+CFLAGS := -g -Wall -Wextra
+CPPFLAGS += -I$(CPPUTEST_HOME)/include
+CXXFLAGS += -I$(CPPUTEST_HOME)/include
+CFLAGS += -I$(CPPUTEST_HOME)/include
+LD_LIBRARIES = -L$(CPPUTEST_HOME)/lib -lCppUTest -lCppUTestExt
+OBJS := test.o test_main.o 
+
+CFLAGS += -fsanitize=address -fno-omit-frame-pointer
+LD_LIBRARIES += -fsanitize=address -fno-omit-frame-pointer
+
+test:	$(OBJS)
+	g++ $(OBJS) $(LDFLAGS) $(LD_LIBRARIES) -o test
+
+clean:
+	rm -f test
